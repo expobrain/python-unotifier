@@ -1,15 +1,19 @@
 from __future__ import unicode_literals
 
 import platform
+import os
 
 import semver
 
-from . import notifiers
+
+VENDOR_PATH = os.path.join(os.path.dirname(__file__), 'vendor')
 
 
 class UNotifier(object):
 
     def __new__(cls, *args, **kwds):
+        from . import notifiers
+
         system = platform.system()
 
         if system == 'Linux':
