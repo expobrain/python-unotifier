@@ -5,6 +5,7 @@ import subprocess
 
 class AbstractNotifier(object):
 
+    CLI_OPTION_CHAR = '--'
     NOTIFIER_CMD = None
     DEFAULT_OPTIONS = {
         'title': None,
@@ -19,6 +20,14 @@ class AbstractNotifier(object):
 
     def __init__(self, options=None):
         self.options = dict(options) if options else {}
+
+    def _map_app_icon(self, options):
+        options = dict(options)
+
+        if 'appIcon' in options:
+            options['icon'] = options.pop('appIcon')
+
+        return options
 
     def _map_icon_shorthand(self, options):
         options = dict(options)
@@ -42,7 +51,7 @@ class AbstractNotifier(object):
 
         for k, v in options.iteritems():
             if v is not None:
-                args.append('-{}'.format(k))
+                args.append('{}{}'.format(self.CLI_OPTION_CHAR, k))
                 args.append('"{}"'.format(v))
 
         return args
