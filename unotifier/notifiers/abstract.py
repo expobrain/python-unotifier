@@ -23,25 +23,19 @@ class AbstractNotifier(object):
 
     def _map_app_icon(self, options):
         options = dict(options)
-
-        if 'appIcon' in options:
-            options['icon'] = options.pop('appIcon')
+        options['icon'] = options.pop('appIcon', None)
 
         return options
 
     def _map_icon_shorthand(self, options):
         options = dict(options)
-
-        if 'i' in options:
-            options['icon'] = options.pop('i')
+        options['icon'] = options.pop('i', None)
 
         return options
 
     def _map_text(self, options):
         options = dict(options)
-
-        if 'text' in options:
-            options['icon'] = options.pop('text')
+        options['message'] = options.pop('text', None)
 
         return options
 
