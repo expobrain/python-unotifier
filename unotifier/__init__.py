@@ -28,4 +28,4 @@ class UNotifier(object):
         else:
             cls = notifiers.GrowlNotifier
 
-        return cls.__new__(cls, *args, **kwds)
+        return cls(*args, **kwds)
