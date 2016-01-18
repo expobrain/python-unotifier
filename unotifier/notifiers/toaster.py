@@ -10,11 +10,7 @@ class ToasterNotifier(AbstractNotifier):
 
     NOTIFIER_CMD = os.path.join(VENDOR_PATH, 'toaster', 'toast.exe')
 
-    def notify(self, message, *args, **kwds):
-
-        super(ToasterNotifier, self).notify(message, *args, **kwds)
-
-    def get_cmd_args(self, options):
+    def get_cmd_options(self, options):
         options = self._map_app_icon(options)
         options = self._map_text(options)
 

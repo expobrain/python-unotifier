@@ -36,12 +36,14 @@ class NotifierTestsMixin(object):
         with patch('subprocess.check_call') as m_check_call:
             self.notifier.notify(message, title=title, icon=icon)
 
-            options = self.notifier.get_options()
+            options = self.notifier.options
             options['message'] = message
             options['title'] = title
             options['icon'] = icon
 
-            cmd_args = [self.notifier_cmd]
-            cmd_args.extend(self.notifier.get_cmd_args(options))
+            cmd_options = self.notifier.get_cmd_options(options)
+            cmd_args = self.notifier.build_cmd_args(cmd_options)
 
-            m_check_call.assert_called_once_with(cmd_args)
+            m_check_call.assert_called_once_with(
+                [self.notifier_cmd] + cmd_args
+            )

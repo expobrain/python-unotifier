@@ -19,7 +19,14 @@ class AbstractNotifier(object):
     }
 
     def __init__(self, options=None):
-        self.options = dict(options) if options else {}
+        self._options = dict(options) if options else {}
+
+    @property
+    def options(self):
+        opts = dict(self.DEFAULT_OPTIONS)
+        opts.update(self._options)
+
+        return opts
 
     def _map_app_icon(self, options):
         options = dict(options)
@@ -39,8 +46,10 @@ class AbstractNotifier(object):
 
         return options
 
-    def get_cmd_args(self, options):
-        options = dict(options)
+    def get_cmd_options(self, options):
+        return options
+
+    def build_cmd_args(self, options):
         args = []
 
         for k, v in options.iteritems():
@@ -50,19 +59,18 @@ class AbstractNotifier(object):
 
         return args
 
-    def get_options(self):
-        opts = dict(self.DEFAULT_OPTIONS)
-        opts.update(self.options)
-
-        return opts
-
     def notify(self, message, title=None, icon=None, wait=None):
-        options = self.get_options()
+        # Prepare options
+        options = self.options
         options['message'] = message
         options['title'] = title
         options['icon'] = icon
 
-        args = [self.NOTIFIER_CMD]
-        args.extend(self.get_cmd_args(options))
+        # Get command options
+        cmd_options = self.get_cmd_options(options)
 
-        subprocess.check_call(args)
+        # Build cmd args
+        cmd_args = self.build_cmd_args(cmd_options)
+
+        # Call notifier
+        subprocess.check_call([self.NOTIFIER_CMD] + cmd_args)

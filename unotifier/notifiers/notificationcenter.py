@@ -15,9 +15,7 @@ class NotificationCenterNotifier(AbstractNotifier):
         'terminal-notifier.app', 'Contents', 'MacOS', 'terminal-notifier'
     )
 
-    def get_options(self):
-        options = super(NotificationCenterNotifier, self).get_options()
-
+    def get_cmd_options(self, options):
         options = self._map_icon_shorthand(options)
         options = self._map_text(options)
 
