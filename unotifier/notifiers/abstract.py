@@ -6,7 +6,7 @@ import subprocess
 class AbstractNotifier(object):
 
     CLI_OPTION_CHAR = '--'
-    NOTIFIER_CMD = None
+    notifier_cmd = None
     DEFAULT_OPTIONS = {
         'title': None,
         'subtitle': None,
@@ -73,4 +73,4 @@ class AbstractNotifier(object):
         cmd_args = self.build_cmd_args(cmd_options)
 
         # Call notifier
-        subprocess.check_call([self.NOTIFIER_CMD] + cmd_args)
+        subprocess.check_call([self.notifier_cmd] + cmd_args)

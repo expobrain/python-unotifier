@@ -8,7 +8,7 @@ from .abstract import AbstractNotifier
 
 class ToasterNotifier(AbstractNotifier):
 
-    NOTIFIER_CMD = os.path.join(VENDOR_PATH, 'toaster', 'toast.exe')
+    notifier_cmd = os.path.join(VENDOR_PATH, 'toaster', 'toast.exe')
 
     def get_cmd_options(self, options):
         options = self._map_app_icon(options)

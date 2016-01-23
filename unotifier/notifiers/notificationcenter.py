@@ -10,7 +10,7 @@ class NotificationCenterNotifier(AbstractNotifier):
 
     DEFAULT_SOUND = 'Bottle'
     CLI_OPTION_CHAR = '-'
-    NOTIFIER_CMD = os.path.join(
+    notifier_cmd = os.path.join(
         VENDOR_PATH,
         'terminal-notifier.app', 'Contents', 'MacOS', 'terminal-notifier'
     )
